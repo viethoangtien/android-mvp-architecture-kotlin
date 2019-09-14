@@ -1,12 +1,10 @@
-package com.soict.hoangviet.baseproject.util
+package com.soict.hoangviet.baseproject.utils
 
 import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.util.Log
 import java.lang.Exception
-import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.util.*
 
 object MapUtil {

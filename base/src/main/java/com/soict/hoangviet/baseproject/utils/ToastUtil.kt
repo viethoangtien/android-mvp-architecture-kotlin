@@ -1,4 +1,4 @@
-package com.soict.hoangviet.baseproject.util
+package com.soict.hoangviet.baseproject.utils
 
 import android.widget.Toast
 import androidx.annotation.StringRes

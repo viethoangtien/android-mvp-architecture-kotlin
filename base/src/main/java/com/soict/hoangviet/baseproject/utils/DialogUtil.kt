@@ -1,4 +1,4 @@
-package com.soict.hoangviet.baseproject.util
+package com.soict.hoangviet.baseproject.utils
 
 import android.app.AlertDialog
 import android.content.Context
