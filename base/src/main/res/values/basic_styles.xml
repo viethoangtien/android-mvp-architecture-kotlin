@@ -1,0 +1,267 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme">
+        <item name="android:colorPrimaryDark"></item>
+        <item name="android:colorPrimary"></item>
+        <item name="android:colorAccent"></item>
+    </style>
+
+    <style name="Layout" />
+
+    <style name="Layout.FillWidth">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Layout.FillHeight">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Layout.FillWidthHeight">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Layout.WrapWidthHeight">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Layout.WrapWidthHeight.White">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="Layout.FillWidth.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Layout.FillWidth.Vertical.White">
+        <item name="android:background">@android:color/white</item>
+        <!--<item name="android:padding">0dp</item>-->
+    </style>
+
+    <style name="Layout.FillWidth.Vertical.Black">
+        <item name="android:background">@android:color/black</item>
+    </style>
+
+    <style name="Layout.FillWidthHeight.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Layout.FillWidth.White">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="Layout.FillWidthHeight.White">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="Layout.FillWidthHeight.Vertical.White">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="Layout.WrapWidthHeight.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Layout.Weight">
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="Layout.Weight.Width">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Layout.Weight.Width.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Layout.Weight.WidthFillHeight">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Layout.Weight.WidthFillHeight.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Layout.Weight.Height">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+    <style name="Layout.Weight.Height.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Layout.Weight.HeightFillWidth">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+    <style name="Layout.Weight.HeightFillWidth.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="ActionBar">
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
+    </style>
+
+    <style name="ActionBar.FillWidth">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="ActionBar.Layout">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="ActionBar.Layout.Button">
+        <item name="android:background">@drawable/selector_bg_transparent</item>
+    </style>
+
+    <style name="ActionBar.FillWidth.White">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="ActionBar.Button">
+        <item name="android:layout_width">?android:attr/actionBarSize</item>
+        <item name="android:background">@drawable/selector_bg_transparent</item>
+    </style>
+
+    <style name="ActionBar.Button.Right">
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="Button" parent="@style/Layout.WrapWidthHeight">
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+
+    <style name="ToggleButton" parent="Layout.WrapWidthHeight">
+        <item name="android:textOn" />
+        <item name="android:textOff" />
+    </style>
+
+    <style name="Text">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Text.FillWidth">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="Text.FillWidth.White">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Text.FillWidth.White.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.FillWidth.Black">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text.FillWidth.Black.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.WrapWidth">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="Text.WrapWidth.SingleLine">
+        <item name="android:maxLines">1</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="Text.WrapWidth.Black">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Text.WrapWidth.Black.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.WrapWidth.Black.Italic">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="Text.WrapWidth.White">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Text.WrapWidth.White.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.WrapWidth.White.Italic">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="Text.FillWidth.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.WrapWidth.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.FillWidth.Italic">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="Text.WrapWidth.Italic">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="Text.Shadow" parent="Layout.FillWidth">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#7F000000</item>
+        <item name="android:shadowDx">-1</item>
+        <item name="android:shadowDy">-1</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:ellipsize">marquee</item>
+    </style>
+
+    <!-- ProgressBar -->
+    <style name="ProgressBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <!-- Divider -->
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/md_grey_400</item>
+        <item name="android:layout_height">1px</item>
+    </style>
+
+    <style name="Divider.White">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="Divider.Vertical">
+        <item name="android:layout_width">1px</item>
+        <item name="android:background">@color/md_grey_400</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <!-- Button Relate social -->
+    <!--<style name="Layout.FillWidth.RelateSocial">-->
+        <!--<item name="android:layout_marginStart">@dimen/margin_normal</item>-->
+        <!--<item name="android:layout_marginEnd">@dimen/margin_normal</item>-->
+        <!--<item name="android:elevation" tools:ignore="NewApi">4dp</item>-->
+        <!--<item name="android:orientation">horizontal</item>-->
+        <!--<item name="android:layout_gravity">center_vertical</item>-->
+        <!--<item name="android:padding">@dimen/content_padding_normal</item>-->
+    <!--</style>-->
+    <style name="Layout.FillWidth.Vertical.Comment">
+        <item name="android:elevation" tools:ignore="NewApi">4dp</item>
+    </style>
+</resources>
