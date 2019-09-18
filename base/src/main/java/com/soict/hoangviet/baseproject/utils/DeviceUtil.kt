@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.soict.hoangviet.baseproject.common.BaseLoadingDialog
 
 object DeviceUtil {
     fun hideSoftKeyBoard(activity: Activity) {
