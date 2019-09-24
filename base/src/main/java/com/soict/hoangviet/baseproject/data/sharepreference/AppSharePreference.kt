@@ -1,4 +1,4 @@
-package com.soict.hoangviet.baseproject.utils.sharepreference
+package com.soict.hoangviet.baseproject.data.sharepreference
 
 import android.content.Context
 import android.content.SharedPreferences

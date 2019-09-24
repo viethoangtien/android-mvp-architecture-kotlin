@@ -51,15 +51,15 @@ fun Context.inflate(@LayoutRes layoutRes: Int, root: ViewGroup, attachToRoot: Bo
  * View visibility
  */
 fun View.visible() {
-    this.visibility = View.VISIBLE
+    visibility = View.VISIBLE
 }
 
 fun View.invisible() {
-    this.visibility = View.INVISIBLE
+    visibility = View.INVISIBLE
 }
 
 fun View.gone() {
-    this.visibility = View.GONE
+    visibility = View.GONE
 }
 
 /**

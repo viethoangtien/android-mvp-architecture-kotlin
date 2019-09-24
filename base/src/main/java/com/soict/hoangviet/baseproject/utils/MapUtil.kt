@@ -67,7 +67,7 @@ object MapUtil {
             return getGeocoder(context, latitude, longitude, maxResult).get(0).adminArea
         } catch (e: Exception) {
             Log.w(TAG, "Canont get Address!")
-        }
+    }
         return ""
     }
 

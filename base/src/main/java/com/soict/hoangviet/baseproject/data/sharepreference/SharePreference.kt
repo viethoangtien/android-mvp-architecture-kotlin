@@ -1,4 +1,4 @@
-package com.soict.hoangviet.baseproject.utils.sharepreference
+package com.soict.hoangviet.baseproject.data.sharepreference
 
 interface SharePreference {
     fun setString(key: String, value: String)
