@@ -18,6 +18,6 @@ class BaseApplication : Application() {
     }
 
     fun getContext(): Context {
-        return this
+        return instance
     }
 }

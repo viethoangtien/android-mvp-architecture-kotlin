@@ -5,7 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
@@ -19,10 +19,42 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    // Sdk and tools
+    minSdkVersion = 21
+    targetSdkVersion = 28
+    compileSdkVersion = 28
+
+    // App dependencies
+    kotlinVersion = kotlin_version
+    supportLibraryVersion = '28.0.0'
+    constraintLayoutVersion = '1.1.3'
+    glideVersion = '4.9.0'
+    glideComplierVersion = '4.9.0'
+    gsonVersion = '2.8.5'
+    gsonConverterVersion = '2.5.0'
+    retrofit2Verion = '2.5.0'
+    interceptorVersion = '3.14.0'
+    rxjava2Version = '2.5.0'
+    serviceMapsVersion = '16.1.0'
+    serviceLocationsVersion = '17.0.0'
+    servicePlacesVersion = '17.0.0'
+    placesLibraryVersion = '2.0.0'
+    mapUtilsVersion = '0.5'
+
+    //Test dependencies
+    jUnitVersion = '4.12'
+    runnerVersion = '1.0.2'
+    espressoVersion = '3.0.2'
+
+}
+
+
