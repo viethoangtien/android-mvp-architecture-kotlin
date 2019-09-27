@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.soict.hoangviet.baseproject.utils.AppConstant
 
-class AppSharePreference private constructor(val context: Context) : SharePreference {
+class AppSharePreference private constructor(var context: Context?) : SharePreference {
     companion object {
         private lateinit var instances: AppSharePreference
         fun getInstance(context: Context): AppSharePreference {
@@ -15,7 +15,7 @@ class AppSharePreference private constructor(val context: Context) : SharePrefer
         }
     }
 
-    private val mPrefs: SharedPreferences = context.getSharedPreferences(AppConstant.PREF_NAME, Context.MODE_PRIVATE)
+    private val mPrefs: SharedPreferences = context?.getSharedPreferences(AppConstant.PREF_NAME, Context.MODE_PRIVATE)!!
 
     override fun setString(key: String, value: String) {
         mPrefs.edit().putString(key, value).apply()
@@ -50,5 +50,10 @@ class AppSharePreference private constructor(val context: Context) : SharePrefer
         return list
     }
 
+    override fun onDestroy() {
+        if (context != null) {
+            context = null
+        }
+    }
 
 }

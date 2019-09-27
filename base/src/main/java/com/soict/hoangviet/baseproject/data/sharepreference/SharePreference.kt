@@ -7,4 +7,5 @@ interface SharePreference {
     fun getBoolean(key: String): Boolean
     fun setArrayListString(arrayName: String, list: ArrayList<String>)
     fun getArrayListString(arrayName: String): ArrayList<String>
+    fun onDestroy()
 }
