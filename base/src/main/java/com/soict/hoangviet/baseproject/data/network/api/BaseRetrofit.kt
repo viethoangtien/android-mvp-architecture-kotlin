@@ -13,35 +13,45 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 open class BaseRetrofit {
-    private lateinit var apiService: ApiService
+    companion object {
+        private lateinit var apiService: ApiService
+        private lateinit var retrofit: Retrofit
 
-    protected fun getApiService(): ApiService {
-        if (apiService == null) {
-            apiService = provideRetrofit().create(ApiService::class.java)
+        private var logging = HttpLoggingInterceptor().setLevel(ApiConstant.LoggingLevel.BODY)
+
+        private fun provideOkHttpClient(): OkHttpClient {
+            var mOkHttpClientBuilder = OkHttpClient.Builder()
+            mOkHttpClientBuilder.connectTimeout(ApiConstant.Timeout.CONNECT, TimeUnit.SECONDS)
+            mOkHttpClientBuilder.readTimeout(ApiConstant.Timeout.READ, TimeUnit.SECONDS)
+            mOkHttpClientBuilder.writeTimeout(ApiConstant.Timeout.WRITE, TimeUnit.SECONDS)
+            mOkHttpClientBuilder.callTimeout(ApiConstant.Timeout.CALL, TimeUnit.SECONDS)
+            if (BuildConfig.DEBUG) {
+                mOkHttpClientBuilder?.let {
+                    if (!it.interceptors().contains(logging)) {
+                        it.addInterceptor(logging)
+                    }
+                }
+            }
+            return mOkHttpClientBuilder.build()
         }
-        return apiService
-    }
 
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(provideOkHttpClient())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    private fun provideOkHttpClient(): OkHttpClient {
-        var mOkHttpClientBuilder = OkHttpClient.Builder()
-        mOkHttpClientBuilder.connectTimeout(ApiConstant.Timeout.CONNECT, TimeUnit.SECONDS)
-        mOkHttpClientBuilder.readTimeout(ApiConstant.Timeout.READ, TimeUnit.SECONDS)
-        mOkHttpClientBuilder.writeTimeout(ApiConstant.Timeout.WRITE, TimeUnit.SECONDS)
-        mOkHttpClientBuilder.callTimeout(ApiConstant.Timeout.CALL, TimeUnit.SECONDS)
-        if (BuildConfig.DEBUG) {
-            val logging = HttpLoggingInterceptor()
-            logging.setLevel(ApiConstant.LoggingLevel.BODY)
-            mOkHttpClientBuilder.addInterceptor(logging)
+        fun provideRetrofit(): Retrofit {
+            if (retrofit == null) {
+                retrofit = Retrofit.Builder()
+                    .baseUrl(BuildConfig.BASE_URL)
+                    .client(provideOkHttpClient())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            }
+            return retrofit
         }
-        return mOkHttpClientBuilder.build()
+
+        fun getApiService(): ApiService {
+            if (apiService == null) {
+                apiService = provideRetrofit().create(ApiService::class.java)
+            }
+            return apiService
+        }
     }
 
     protected fun createRequestBody(request: Any): RequestBody {
