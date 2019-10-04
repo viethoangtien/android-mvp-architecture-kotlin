@@ -1,16 +1,9 @@
 package com.soict.hoangviet.baseproject.utils
 
-import android.content.Context
-import android.content.res.Resources
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.bumptech.glide.request.RequestOptions
-import com.soict.hoangviet.baseproject.R
-import com.soict.hoangviet.baseproject.module.GlideApp
 
 
 object ActivityUtil {
@@ -18,5 +11,30 @@ object ActivityUtil {
         mFragmentManager.beginTransaction()
             .add(frameId, fragment)
             .commit()
+    }
+
+    fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
+        val fragmentTransaction = beginTransaction()
+        fragmentTransaction.func()
+        fragmentTransaction.commit()
+    }
+
+    fun AppCompatActivity.addFragment(frameId: Int, fragment: Fragment) {
+        supportFragmentManager.inTransaction {
+            add(frameId, fragment)
+        }
+    }
+
+    fun AppCompatActivity.addAndToBackStack(frameId: Int, fragment: Fragment) {
+        supportFragmentManager.inTransaction {
+            add(frameId, fragment)
+            addToBackStack(null)
+        }
+    }
+
+    fun AppCompatActivity.replaceFragment(frameId: Int, fragment: Fragment) {
+        supportFragmentManager.inTransaction {
+            replace(frameId, fragment)
+        }
     }
 }
