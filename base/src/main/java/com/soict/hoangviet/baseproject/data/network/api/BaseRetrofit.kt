@@ -22,7 +22,7 @@ open class BaseRetrofit {
         return apiService
     }
 
-    private fun provideRetrofit(): Retrofit {
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(provideOkHttpClient())
@@ -45,7 +45,7 @@ open class BaseRetrofit {
     }
 
     protected fun createRequestBody(request: Any): RequestBody {
-        val data = Gson().toJson(request)
-        return RequestBody.create(MultipartBody.FORM, data ?: "")
+        val rawString = Gson().toJson(request)
+        return RequestBody.create(MultipartBody.FORM, rawString ?: "")
     }
 }

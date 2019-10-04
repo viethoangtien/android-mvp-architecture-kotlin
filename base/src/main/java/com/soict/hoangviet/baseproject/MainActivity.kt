@@ -3,6 +3,7 @@ package com.soict.hoangviet.baseproject
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.soict.hoangviet.baseproject.custom.AmountTextWatcher
+import com.soict.hoangviet.baseproject.data.network.api.RetrofitManager
 import com.soict.hoangviet.baseproject.extension.inResourceString
 import kotlinx.android.synthetic.main.activity_test.*
 
