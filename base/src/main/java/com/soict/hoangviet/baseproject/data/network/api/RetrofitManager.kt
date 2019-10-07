@@ -1,9 +1,11 @@
 package com.soict.hoangviet.baseproject.data.network.api
 
+import com.google.gson.Gson
 import com.soict.hoangviet.baseproject.data.network.ApiConstant
+import com.soict.hoangviet.baseproject.data.network.ApiError
 import com.soict.hoangviet.baseproject.data.network.ICallBack
 import com.soict.hoangviet.baseproject.data.network.response.BaseEntityResponse
-import com.soict.hoangviet.baseproject.utils.ErrorUtil
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,14 +41,18 @@ class RetrofitManager : BaseRetrofit() {
             response.code() == ApiConstant.HttpStatusCode.UNAUTHORIZED -> {
             }
             else -> {
-                handleError(iCallBack, response)
+                handleErrorResponse(iCallBack, response)
             }
         }
     }
 
-    private fun <T> handleError(iCallBack: ICallBack<T>, response: Response<T>) {
-        val apiError = ErrorUtil.parseError(response)
-        iCallBack.onError(apiError)
+    private fun <T> handleErrorResponse(iCallBack: ICallBack<T>, response: Response<T>) {
+        try {
+            val mApiError = gsonFromJson(response.errorBody()?.toString(), ApiError::class.java)
+            iCallBack.onError(mApiError)
+        } catch (e: Exception) {
+            iCallBack.onError(ApiError())
+        }
     }
 
     fun getCategory(iCallBack: ICallBack<BaseEntityResponse<*>>) {

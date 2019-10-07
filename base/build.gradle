@@ -37,15 +37,15 @@ android {
             debuggable true
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
-            buildConfigField 'String', 'BASE_URL', '"https://api-stagging.base.com/v1"'
-            buildConfigField 'String', 'BASE_MAP_URL', '"https://maps.googleapis.com/maps/api"'
+            buildConfigField 'String', 'BASE_URL', '"https://api-stagging.base.com/v1/"'
+            buildConfigField 'String', 'BASE_MAP_URL', '"https://maps.googleapis.com/maps/api/"'
             signingConfig signingConfigs.debug
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField 'String', 'BASE_URL', '"https://api.base.com/v1"'
-            buildConfigField 'String', 'BASE_MAP_URL', '"https://maps.googleapis.com/maps/api"'
+            buildConfigField 'String', 'BASE_URL', '"https://api.base.com/v1/"'
+            buildConfigField 'String', 'BASE_MAP_URL', '"https://maps.googleapis.com/maps/api/"'
             versionNameSuffix "-release"
             signingConfig signingConfigs.release
         }

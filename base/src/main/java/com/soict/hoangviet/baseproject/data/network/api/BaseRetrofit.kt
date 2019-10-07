@@ -10,13 +10,13 @@ import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 open class BaseRetrofit {
     companion object {
         private lateinit var apiService: ApiService
         private lateinit var retrofit: Retrofit
-
         private var logging = HttpLoggingInterceptor().setLevel(ApiConstant.LoggingLevel.BODY)
 
         private fun provideOkHttpClient(): OkHttpClient {
@@ -35,7 +35,7 @@ open class BaseRetrofit {
             return mOkHttpClientBuilder.build()
         }
 
-        fun provideRetrofit(): Retrofit {
+        private fun provideRetrofit(): Retrofit {
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
                     .baseUrl(BuildConfig.BASE_URL)
@@ -55,7 +55,16 @@ open class BaseRetrofit {
     }
 
     protected fun createRequestBody(request: Any): RequestBody {
-        val rawString = Gson().toJson(request)
+        var rawString: String? = null
+        try {
+            rawString = Gson().toJson(request)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         return RequestBody.create(MultipartBody.FORM, rawString ?: "")
+    }
+
+    protected fun <T> gsonFromJson(json: String?, classOfT: Class<T>): T {
+        return Gson().fromJson(json, classOfT) ?: throw Exception()
     }
 }
