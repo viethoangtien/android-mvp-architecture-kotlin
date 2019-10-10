@@ -76,4 +76,10 @@ object ApiConstant {
             val BODY = HttpLoggingInterceptor.Level.BODY
         }
     }
+
+    interface HttpMessage {
+        companion object {
+            const val ERROR_TRY_AGAIN = "Có lỗi xảy ra. Vui lòng thử lại"
+        }
+    }
 }

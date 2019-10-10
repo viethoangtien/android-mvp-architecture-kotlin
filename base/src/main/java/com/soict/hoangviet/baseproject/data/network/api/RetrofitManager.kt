@@ -10,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RetrofitManager : BaseRetrofit() {
+class RetrofitManager private constructor() : BaseRetrofit() {
     companion object {
         private lateinit var instance: RetrofitManager
         fun getInstance(): RetrofitManager {
@@ -49,9 +49,9 @@ class RetrofitManager : BaseRetrofit() {
     private fun <T> handleErrorResponse(iCallBack: ICallBack<T>, response: Response<T>) {
         try {
             val mApiError = gsonFromJson(response.errorBody()?.toString(), ApiError::class.java)
-            iCallBack.onError(mApiError)
+            iCallBack.onError(mApiError.getApiException())
         } catch (e: Exception) {
-            iCallBack.onError(ApiError())
+            iCallBack.onError(ApiException())
         }
     }
 

@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
-open class BaseRetrofit {
+open class BaseRetrofit{
     companion object {
         private lateinit var apiService: ApiService
         private lateinit var retrofit: Retrofit
