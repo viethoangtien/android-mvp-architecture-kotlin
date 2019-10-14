@@ -61,9 +61,9 @@ object ApiConstant {
 
     interface Timeout {
         companion object {
-            const val CONNECT = 5L
-            const val READ = 5L
-            const val WRITE = 5L
+            const val CONNECT = 2L
+            const val READ = 2L
+            const val WRITE = 2L
             const val CALL = 10L
         }
     }
@@ -80,6 +80,12 @@ object ApiConstant {
     interface HttpMessage {
         companion object {
             const val ERROR_TRY_AGAIN = "Có lỗi xảy ra. Vui lòng thử lại"
+        }
+    }
+
+    interface ErrorCode {
+        companion object {
+            const val INVALID_TOKEN = -10002
         }
     }
 }

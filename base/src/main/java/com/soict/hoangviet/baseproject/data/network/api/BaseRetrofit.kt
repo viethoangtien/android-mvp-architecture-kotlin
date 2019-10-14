@@ -3,10 +3,15 @@ package com.soict.hoangviet.baseproject.data.network.api
 import com.google.gson.Gson
 import com.soict.hoangviet.baseproject.BuildConfig
 import com.soict.hoangviet.baseproject.data.network.ApiConstant
+import com.soict.hoangviet.baseproject.data.network.ApiError
 import com.soict.hoangviet.baseproject.data.network.ApiService
+import com.soict.hoangviet.baseproject.data.network.ICallBack
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Retrofit
+import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
@@ -22,9 +27,8 @@ open class BaseRetrofit {
             mOkHttpClientBuilder.connectTimeout(ApiConstant.Timeout.CONNECT, TimeUnit.SECONDS)
             mOkHttpClientBuilder.readTimeout(ApiConstant.Timeout.READ, TimeUnit.SECONDS)
             mOkHttpClientBuilder.writeTimeout(ApiConstant.Timeout.WRITE, TimeUnit.SECONDS)
-            mOkHttpClientBuilder.callTimeout(ApiConstant.Timeout.CALL, TimeUnit.SECONDS)
             mOkHttpClientBuilder.addInterceptor(object : Interceptor {
-                override fun intercept(chain: Interceptor.Chain): Response {
+                override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
                     val original = chain.request()
                     val request = original.newBuilder()
                         .addHeader("Content-Type", "application/json")
@@ -74,5 +78,57 @@ open class BaseRetrofit {
 
     protected fun <T> gsonFromJson(json: String?, classOfT: Class<T>): T {
         return Gson().fromJson(json, classOfT) ?: throw Exception()
+    }
+
+    protected fun <T> callRequest(call: Call<T>, iCallBack: ICallBack<T>) {
+        call.enqueue(object : Callback<T> {
+            override fun onResponse(call: Call<T>, response: Response<T>) {
+                handleResponse(iCallBack, response)
+            }
+
+            override fun onFailure(call: Call<T>, t: Throwable) {
+            }
+        })
+    }
+
+    private fun <T> handleResponse(iCallBack: ICallBack<T>, response: Response<T>) {
+        when {
+            response.code() == ApiConstant.HttpStatusCode.OK -> {
+                iCallBack.onSuccess(response.body()!!)
+            }
+            response.code() == ApiConstant.HttpStatusCode.CREATED -> {
+                iCallBack.onSuccess(response.body()!!)
+            }
+            response.code() == ApiConstant.HttpStatusCode.UNAUTHORIZED -> {
+                handleInvalidToken(iCallBack, response)
+            }
+            else -> {
+                handleErrorResponse(iCallBack, response)
+            }
+        }
+    }
+
+    private fun <T> handleInvalidToken(iCallBack: ICallBack<T>, response: Response<T>) {
+        try {
+            val mApiError = gsonFromJson(response.errorBody()?.toString(), ApiError::class.java)
+            mApiError.statusCode = ApiConstant.ErrorCode.INVALID_TOKEN
+            iCallBack.onError(mApiError.getApiException())
+        } catch (e: Exception) {
+            iCallBack.onError(ApiException(ApiConstant.ErrorCode.INVALID_TOKEN))
+        } finally {
+            logOut()
+        }
+    }
+
+    private fun <T> handleErrorResponse(iCallBack: ICallBack<T>, response: retrofit2.Response<T>) {
+        try {
+            val mApiError = gsonFromJson(response.errorBody()?.toString(), ApiError::class.java)
+            iCallBack.onError(mApiError.getApiException())
+        } catch (e: Exception) {
+            iCallBack.onError(ApiException())
+        }
+    }
+
+    private fun logOut() {
     }
 }

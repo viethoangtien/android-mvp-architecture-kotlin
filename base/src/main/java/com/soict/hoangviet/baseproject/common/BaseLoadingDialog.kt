@@ -1,12 +1,10 @@
 package com.soict.hoangviet.baseproject.common
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.WindowManager
 import com.soict.hoangviet.baseproject.R
 
 class BaseLoadingDialog private constructor(var context: Context) {
