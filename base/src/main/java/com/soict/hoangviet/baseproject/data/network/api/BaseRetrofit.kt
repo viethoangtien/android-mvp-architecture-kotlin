@@ -2,6 +2,7 @@ package com.soict.hoangviet.baseproject.data.network.api
 
 import com.google.gson.Gson
 import com.soict.hoangviet.baseproject.BuildConfig
+import com.soict.hoangviet.baseproject.application.BaseApplication
 import com.soict.hoangviet.baseproject.data.network.ApiConstant
 import com.soict.hoangviet.baseproject.data.network.ApiError
 import com.soict.hoangviet.baseproject.data.network.ApiService
@@ -36,7 +37,7 @@ open class BaseRetrofit {
                         .build()
                     return chain.proceed(request)
                 }
-            })
+            }).addInterceptor(NetworkConnectionInterceptor(BaseApplication().getContext()))
             if (BuildConfig.DEBUG) {
                 mOkHttpClientBuilder?.let {
                     if (!it.interceptors().contains(logging)) {
@@ -86,9 +87,18 @@ open class BaseRetrofit {
                 handleResponse(iCallBack, response)
             }
 
-            override fun onFailure(call: Call<T>, t: Throwable) {
+            override fun onFailure(call: Call<T>, throwable: Throwable) {
+                handleFailure(iCallBack, throwable)
             }
         })
+    }
+
+    private fun <T> handleFailure(iCallBack: ICallBack<T>, throwable: Throwable) {
+        if (throwable is NetworkConnectionInterceptor.NoConnectivityException) {
+            iCallBack.onError(ApiException(throwable?.let { it.message!! }))
+        }else{
+            iCallBack.onError(ApiException(throwable?.let { it.message!! }))
+        }
     }
 
     private fun <T> handleResponse(iCallBack: ICallBack<T>, response: Response<T>) {
@@ -120,7 +130,7 @@ open class BaseRetrofit {
         }
     }
 
-    private fun <T> handleErrorResponse(iCallBack: ICallBack<T>, response: retrofit2.Response<T>) {
+    private fun <T> handleErrorResponse(iCallBack: ICallBack<T>, response: Response<T>) {
         try {
             val mApiError = gsonFromJson(response.errorBody()?.toString(), ApiError::class.java)
             iCallBack.onError(mApiError.getApiException())

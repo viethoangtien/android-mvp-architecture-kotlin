@@ -13,6 +13,10 @@ class ApiException : Exception {
         this.statusCode = statusCode
     }
 
+    constructor(msg: String) : super(msg) {
+
+    }
+
     constructor(statusCode: Int, msg: String) : super(msg) {
         this.statusCode = statusCode
     }
