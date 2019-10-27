@@ -7,6 +7,7 @@ import com.soict.hoangviet.baseproject.data.network.ApiConstant
 import com.soict.hoangviet.baseproject.data.network.ApiError
 import com.soict.hoangviet.baseproject.data.network.ApiService
 import com.soict.hoangviet.baseproject.data.network.ICallBack
+import io.reactivex.observers.DisposableSingleObserver
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -77,65 +78,78 @@ open class BaseRetrofit {
         return RequestBody.create(MultipartBody.FORM, rawString ?: "")
     }
 
+    protected fun <T> getSubscriber(callBack: ICallBack<T>): DisposableSingleObserver<Response<T>> {
+        return object : DisposableSingleObserver<Response<T>>() {
+            override fun onSuccess(response: Response<T>?) {
+                handleResponse(callBack, response!!)
+            }
+
+            override fun onError(throwable: Throwable?) {
+                handleFailure(callBack, throwable!!)
+            }
+
+        }
+    }
+
     protected fun <T> gsonFromJson(json: String?, classOfT: Class<T>): T {
         return Gson().fromJson(json, classOfT) ?: throw Exception()
     }
 
-    protected fun <T> callRequest(call: Call<T>, iCallBack: ICallBack<T>) {
+    protected fun <T> callRequest(call: Call<T>, callBack: ICallBack<T>) {
         call.enqueue(object : Callback<T> {
             override fun onResponse(call: Call<T>, response: Response<T>) {
-                handleResponse(iCallBack, response)
+                handleResponse(callBack, response)
             }
 
             override fun onFailure(call: Call<T>, throwable: Throwable) {
-                handleFailure(iCallBack, throwable)
+                handleFailure(callBack, throwable)
             }
         })
     }
 
-    private fun <T> handleFailure(iCallBack: ICallBack<T>, throwable: Throwable) {
+    private fun <T> handleFailure(callBack: ICallBack<T>, throwable: Throwable) {
         if (throwable is NetworkConnectionInterceptor.NoConnectivityException) {
-            iCallBack.onError(ApiException(throwable?.let { it.message!! }))
-        }else{
-            iCallBack.onError(ApiException(throwable?.let { it.message!! }))
+            callBack.onError(ApiException(throwable?.let { it.message!! }))
+        } else {
+            callBack.onError(ApiException(throwable?.let { it.message!! }))
         }
     }
 
-    private fun <T> handleResponse(iCallBack: ICallBack<T>, response: Response<T>) {
+    private fun <T> handleResponse(callBack: ICallBack<T>, response: Response<T>) {
         when {
             response.code() == ApiConstant.HttpStatusCode.OK -> {
-                iCallBack.onSuccess(response.body()!!)
+                callBack.onSuccess(response.body()!!)
             }
             response.code() == ApiConstant.HttpStatusCode.CREATED -> {
-                iCallBack.onSuccess(response.body()!!)
+                callBack.onSuccess(response.body()!!)
             }
             response.code() == ApiConstant.HttpStatusCode.UNAUTHORIZED -> {
-                handleInvalidToken(iCallBack, response)
+                handleInvalidToken(callBack, response)
             }
             else -> {
-                handleErrorResponse(iCallBack, response)
+                handleErrorResponse(callBack, response)
             }
         }
     }
 
-    private fun <T> handleInvalidToken(iCallBack: ICallBack<T>, response: Response<T>) {
+    private fun <T> handleInvalidToken(callBack: ICallBack<T>, response: Response<T>) {
         try {
             val mApiError = gsonFromJson(response.errorBody()?.toString(), ApiError::class.java)
             mApiError.statusCode = ApiConstant.ErrorCode.INVALID_TOKEN
-            iCallBack.onError(mApiError.getApiException())
+            callBack.onError(mApiError.getApiException())
         } catch (e: Exception) {
-            iCallBack.onError(ApiException(ApiConstant.ErrorCode.INVALID_TOKEN))
+            callBack.onError(ApiException(ApiConstant.ErrorCode.INVALID_TOKEN))
         } finally {
             logOut()
         }
     }
 
-    private fun <T> handleErrorResponse(iCallBack: ICallBack<T>, response: Response<T>) {
+    private fun <T> handleErrorResponse(callBack: ICallBack<T>, response: Response<T>) {
         try {
             val mApiError = gsonFromJson(response.errorBody()?.toString(), ApiError::class.java)
-            iCallBack.onError(mApiError.getApiException())
+            callBack.onError(mApiError.getApiException())
         } catch (e: Exception) {
-            iCallBack.onError(ApiException())
+            callBack.onError(ApiException())
         }
     }
 

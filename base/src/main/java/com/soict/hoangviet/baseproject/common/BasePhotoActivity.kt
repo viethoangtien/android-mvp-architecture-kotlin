@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.soict.hoangviet.baseproject.utils.PermissionUtil
 import java.io.File
 import android.provider.MediaStore
-import android.util.Log
 import androidx.core.content.FileProvider
 import com.soict.hoangviet.baseproject.utils.LogUtil
 import java.io.IOException
@@ -113,7 +112,6 @@ abstract class BasePhotoActivity() : AppCompatActivity() {
     }
 
     private fun dispatchTakePictureIntentPreLollipop() {
-
     }
 
     private fun handleImageUri(uriImage: Uri) {
@@ -163,9 +161,10 @@ abstract class BasePhotoActivity() : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CHOOSE_IMAGE) {
             LogUtil.d("Success: Pick Image")
             handleImageUri(data?.data!!)
+            return
         }
     }
 
-    abstract fun onTakeImageFileCaptureSuccess(cameraFilePath: String)
-    abstract fun onTakeAbsolutePathImageSuccess(absoluteFilePathImage: String)
+    open fun onTakeImageFileCaptureSuccess(cameraFilePath: String){}
+    open fun onTakeAbsolutePathImageSuccess(absoluteFilePathImage: String){}
 }

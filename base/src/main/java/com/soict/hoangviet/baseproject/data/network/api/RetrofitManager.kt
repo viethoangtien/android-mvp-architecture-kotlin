@@ -19,8 +19,8 @@ class RetrofitManager private constructor() : BaseRetrofit() {
         }
     }
 
-    fun getCategory(iCallBack: ICallBack<BaseEntityResponse<*>>) {
+    fun getCategory(callBack: ICallBack<BaseEntityResponse<*>>) {
         val call = getApiService().getCategory()
-        callRequest(call, iCallBack)
+        callRequest(call, callBack)
     }
 }
