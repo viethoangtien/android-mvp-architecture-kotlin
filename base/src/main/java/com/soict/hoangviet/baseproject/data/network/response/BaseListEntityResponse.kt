@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 class BaseListEntityResponse<T> : BaseResponse() {
     @SerializedName("data")
-    private var data: ArrayList<T>? = null
+    var data: ArrayList<T>? = null
 }

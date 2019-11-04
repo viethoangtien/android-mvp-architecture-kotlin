@@ -7,8 +7,8 @@ import android.widget.RelativeLayout
 import com.soict.hoangviet.baseproject.extension.inflate
 
 abstract class BaseCustomViewRelativeLayout : RelativeLayout {
-    protected abstract var layoutRes: Int
-    protected abstract var styleRes: IntArray?
+    protected abstract val layoutRes: Int
+    protected open val styleRes: IntArray? = null
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -23,9 +23,11 @@ abstract class BaseCustomViewRelativeLayout : RelativeLayout {
     }
 
     private fun initStyleable(it: AttributeSet) {
-        val typeArray = context.obtainStyledAttributes(it, styleRes, 0, 0)
-        initDataFromStyleable(typeArray)
-        typeArray.recycle()
+        if (styleRes != null && styleRes?.isNotEmpty()!!) {
+            val typeArray = context.obtainStyledAttributes(it, styleRes, 0, 0)
+            initDataFromStyleable(typeArray)
+            typeArray.recycle()
+        }
     }
 
     protected open fun initDataFromStyleable(typeArray: TypedArray?) {

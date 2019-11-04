@@ -14,14 +14,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.Response
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 open class BaseRetrofit {
     companion object {
-        private lateinit var apiService: ApiService
-        private lateinit var retrofit: Retrofit
+        private var apiService: ApiService? = null
+        private var retrofit: Retrofit? = null
         private var logging = HttpLoggingInterceptor().setLevel(ApiConstant.LoggingLevel.BODY)
 
         private fun provideOkHttpClient(): OkHttpClient {
@@ -55,16 +56,17 @@ open class BaseRetrofit {
                     .baseUrl(BuildConfig.BASE_URL)
                     .client(provideOkHttpClient())
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build()
             }
-            return retrofit
+            return retrofit!!
         }
 
         fun getApiService(): ApiService {
             if (apiService == null) {
                 apiService = provideRetrofit().create(ApiService::class.java)
             }
-            return apiService
+            return apiService!!
         }
     }
 
@@ -80,11 +82,11 @@ open class BaseRetrofit {
 
     protected fun <T> getSubscriber(callBack: ICallBack<T>): DisposableSingleObserver<Response<T>> {
         return object : DisposableSingleObserver<Response<T>>() {
-            override fun onSuccess(response: Response<T>?) {
+            override fun onSuccess(response: Response<T>) {
                 handleResponse(callBack, response!!)
             }
 
-            override fun onError(throwable: Throwable?) {
+            override fun onError(throwable: Throwable) {
                 handleFailure(callBack, throwable!!)
             }
 

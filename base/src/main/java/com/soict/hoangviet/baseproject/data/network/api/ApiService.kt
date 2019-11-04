@@ -1,9 +1,13 @@
 package com.soict.hoangviet.baseproject.data.network
 
 import com.soict.hoangviet.baseproject.data.network.response.BaseEntityResponse
+import com.soict.hoangviet.baseproject.data.network.response.BaseListEntityResponse
+import com.soict.hoangviet.baseproject.data.network.response.TestResponse
+import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
@@ -24,5 +28,9 @@ interface ApiService {
 
     @GET
     @Headers("Content-Type:application/json")
-    fun dynamicUrl(@Url url: String) : Call<BaseEntityResponse<*>>
+    fun dynamicUrl(@Url url: String): Call<BaseEntityResponse<*>>
+
+    @GET("/v1/drivers/{${ApiConstant.RequestParam.ID}}/posts")
+    @Headers("Content-Type:application/json")
+    fun getListDriver(@Header(ApiConstant.RequestParam.AUTHORIZATION_HEADER) authToken: String, @Path(ApiConstant.RequestParam.ID) id: Int, @QueryMap data: MutableMap<String, Any>): Single<Response<BaseListEntityResponse<TestResponse>>>
 }

@@ -48,24 +48,24 @@ abstract class EndlessLoadingRecyclerViewAdapter(context: Context) : RecyclerVie
         })
     }
 
-    protected fun showLoadingMoreProgress() {
-        addModels(null, VIEW_TYPE_NORMAL_LOADING, false, true)
+    fun showLoadingMoreProgress() {
+        addModel(null, VIEW_TYPE_NORMAL_LOADING, false, true)
     }
 
-    protected fun hideLoadingMoreProgress() {
+    fun hideLoadingMoreProgress() {
         isLoading = false
         removeItemAt(itemCount - 1)
     }
 
-    protected fun setIsLoading(isLoading: Boolean) {
+    fun setIsLoading(isLoading: Boolean) {
         this.isLoading = isLoading
     }
 
-    protected fun enableLoadingMore(enable: Boolean) {
+    fun enableLoadingMore(enable: Boolean) {
         this.enableLoadMore = enable
     }
 
-    protected fun setLoadingMoreListner(listener: OnLoadingMoreListener) {
+    fun setLoadingMoreListner(listener: OnLoadingMoreListener) {
         mListener = listener
     }
 

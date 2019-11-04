@@ -37,7 +37,7 @@ android {
             debuggable true
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
-            buildConfigField 'String', 'BASE_URL', '"https://api-stagging.base.com/v1/"'
+            buildConfigField 'String', 'BASE_URL', '"http://api-staging.timdatxe.com/v1/"'
             buildConfigField 'String', 'BASE_MAP_URL', '"https://maps.googleapis.com/maps/api/"'
             signingConfig signingConfigs.debug
         }
@@ -93,6 +93,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.interceptorVersion"
     // Rx adapter for retrofit
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.rxjava2Version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
 
     //google play service
     implementation "com.google.android.gms:play-services-maps:$rootProject.serviceMapsVersion"

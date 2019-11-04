@@ -49,7 +49,7 @@ abstract class RecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<
         mOnItemClickListener = listener
     }
 
-    protected fun clear() {
+    fun clear() {
         mListWrapperModel.clear()
         notifyDataSetChanged()
     }
@@ -68,19 +68,19 @@ abstract class RecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<
         addModel(listModel, viewType, isScroolToLast)
     }
 
-    protected fun addModels(model: Any?) {
-        addModels(model, VIEW_TYPE_NORMAL)
+    fun addModel(model: Any?) {
+        addModel(model, VIEW_TYPE_NORMAL)
     }
 
-    protected fun addModels(model: Any?, viewType: Int) {
-        addModels(model, viewType, false)
+    fun addModel(model: Any?, viewType: Int) {
+        addModel(model, viewType, false)
     }
 
-    protected fun addModels(model: Any?, viewType: Int, isSelected: Boolean) {
-        addModels(model, viewType, isSelected, false)
+    fun addModel(model: Any?, viewType: Int, isSelected: Boolean) {
+        addModel(model, viewType, isSelected, false)
     }
 
-    protected fun addModels(model: Any?, viewType: Int, isSelected: Boolean, isScroolToLast: Boolean) {
+    fun addModel(model: Any?, viewType: Int, isSelected: Boolean, isScroolToLast: Boolean) {
         val wrapperModel = WrapperModel(model, viewType)
         wrapperModel.isSelected = isSelected
         mListWrapperModel.add(wrapperModel)
@@ -90,13 +90,13 @@ abstract class RecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<
         }
     }
 
-    protected fun addModel(listModel: List<Any?>, isScroolToLast: Boolean) {
-        addModel(listModel, VIEW_TYPE_NORMAL, isScroolToLast)
+    fun addModels(listModel: List<Any?>, isScroolToLast: Boolean) {
+        addModels(listModel, VIEW_TYPE_NORMAL, isScroolToLast)
     }
 
-    protected fun addModel(listModel: List<Any?>, viewType: Int, isScroolToLast: Boolean) {
+    fun addModels(listModels: List<Any?>, viewType: Int, isScroolToLast: Boolean) {
         var listModel: MutableList<WrapperModel> = mutableListOf()
-        for (model in listModel) {
+        for (model in listModels) {
             val mWrapperModel = WrapperModel(model, viewType)
             listModel.add(mWrapperModel)
         }
@@ -108,7 +108,7 @@ abstract class RecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<
         }
     }
 
-    protected fun removeItemAt(position: Int) {
+    fun removeItemAt(position: Int) {
         mListWrapperModel.removeAt(position)
         notifyItemRemoved(position)
     }
@@ -255,7 +255,7 @@ abstract class RecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<
 
     abstract fun bindNormalViewHolder(holder: RecyclerView.ViewHolder, position: Int)
 
-    class NormalViewHoler(itemView: View) : RecyclerView.ViewHolder(itemView)
+    open class NormalViewHoler(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     interface OnItemPressListener {
         fun onItemPress(view: View, position: Int?)

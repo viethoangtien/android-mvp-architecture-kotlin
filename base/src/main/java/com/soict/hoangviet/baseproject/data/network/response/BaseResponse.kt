@@ -4,7 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 open class BaseResponse {
     @SerializedName("status")
-    private var status: Int = 0
+    var status: Int = 0
     @SerializedName("msg")
-    private var msg: String = ""
+    var msg: String = ""
+    @SerializedName("total_page")
+    var total_page: Int = 0
+
 }

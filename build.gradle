@@ -44,6 +44,7 @@ ext {
     retrofit2Verion = '2.5.0'
     interceptorVersion = '3.14.0'
     rxjava2Version = '2.5.0'
+    rxandroidVersion = '2.1.1'
     serviceMapsVersion = '16.1.0'
     serviceLocationsVersion = '17.0.0'
     servicePlacesVersion = '17.0.0'
