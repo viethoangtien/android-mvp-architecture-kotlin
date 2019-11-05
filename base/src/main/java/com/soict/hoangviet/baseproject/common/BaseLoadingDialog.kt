@@ -7,7 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import com.soict.hoangviet.baseproject.R
 
-class BaseLoadingDialog private constructor(var context: Context) {
+class BaseLoadingDialog private constructor(private var context: Context) {
 
     private var mDialog: Dialog? = null
     private var shown: Boolean? = null
@@ -15,12 +15,12 @@ class BaseLoadingDialog private constructor(var context: Context) {
     //Before initialize instance of class
     //Before class constructor
     companion object {
-        private lateinit var instance: BaseLoadingDialog
+        private var instance: BaseLoadingDialog? = null
         fun getInstance(context: Context): BaseLoadingDialog {
             if (instance == null) {
                 instance = BaseLoadingDialog(context)
             }
-            return instance
+            return instance!!
         }
     }
 
@@ -36,14 +36,14 @@ class BaseLoadingDialog private constructor(var context: Context) {
         shown = false
     }
 
-    private fun showLoadingDialog() {
+    fun showLoadingDialog() {
         if (!shown!! && !(context as Activity).isFinishing) {
             force()
             mDialog?.show()
         }
     }
 
-    private fun hideLoadingDialog() {
+    fun hideLoadingDialog() {
         if (shown!! && (mDialog?.isShowing!!)) {
             initialization()
             mDialog?.dismiss()

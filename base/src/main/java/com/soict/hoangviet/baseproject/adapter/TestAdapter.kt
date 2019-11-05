@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_test.view.*
 
 class TestAdapter(context: Context) : EndlessLoadingRecyclerViewAdapter(context) {
     override fun initLoadingViewHolder(parent: ViewGroup, viewType: Int): LoadingViewHolder {
-        return LoadingViewHolder(context.inflate(R.layout.layout_loading))
+        return LoadingViewHolder(context.inflate(R.layout.layout_loadmore))
     }
 
     override fun onBindLoadingViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
