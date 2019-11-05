@@ -58,6 +58,18 @@ class BaseRecyclerView(context: Context?, attrs: AttributeSet?) :
         this.mSwipeRefreshListener = listener
     }
 
+    fun setOnItemClickListener(listener: RecyclerViewAdapter.OnItemClickListener) {
+        mBaseAdapter?.let {
+            it.setOnItemClickListener(listener)
+        }
+    }
+
+    fun setOnLoadMoreListener(listener: EndlessLoadingRecyclerViewAdapter.OnLoadingMoreListener) {
+        mBaseAdapter?.let {
+            it.setLoadingMoreListner(listener)
+        }
+    }
+
     fun showLoadingMoreProgress() {
         mBaseAdapter?.let {
             it.showLoadingMoreProgress()

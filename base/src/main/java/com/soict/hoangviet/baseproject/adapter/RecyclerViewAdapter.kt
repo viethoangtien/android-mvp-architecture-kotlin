@@ -45,7 +45,7 @@ abstract class RecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<
         mOnItemPressListener = listener
     }
 
-    protected fun setOnItemClickListener(listener: OnItemClickListener) {
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         mOnItemClickListener = listener
     }
 
@@ -95,7 +95,7 @@ abstract class RecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<
     }
 
     fun addModels(listModels: List<Any?>, viewType: Int, isScroolToLast: Boolean) {
-        var listModel: MutableList<WrapperModel> = mutableListOf()
+        val listModel: MutableList<WrapperModel> = mutableListOf()
         for (model in listModels) {
             val mWrapperModel = WrapperModel(model, viewType)
             listModel.add(mWrapperModel)
