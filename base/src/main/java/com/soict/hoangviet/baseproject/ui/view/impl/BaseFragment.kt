@@ -1,4 +1,4 @@
-package com.soict.hoangviet.baseproject.ui.base.view
+package com.soict.hoangviet.baseproject.ui.view.impl
 
 import android.content.Context
 import android.os.Bundle
@@ -6,7 +6,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.soict.hoangviet.baseproject.common.BaseLoadingDialog
-import com.soict.hoangviet.baseproject.ui.base.presenter.BasePresenter
+import com.soict.hoangviet.baseproject.ui.presenter.BasePresenter
+import com.soict.hoangviet.baseproject.ui.view.BaseView
 
 abstract class BaseFragment<P : BasePresenter> : Fragment(), BaseView {
     private var parentActivity: AppCompatActivity? = null

@@ -1,4 +1,4 @@
-package com.soict.hoangviet.baseproject.ui.base.view
+package com.soict.hoangviet.baseproject.ui.view
 
 interface BaseView {
     fun showLoading()

@@ -1,12 +1,12 @@
-package com.soict.hoangviet.baseproject.ui.base.interactor
+package com.soict.hoangviet.baseproject.ui.interactor.impl
 
 import com.google.gson.Gson
 import com.soict.hoangviet.baseproject.data.network.ApiConstant
 import com.soict.hoangviet.baseproject.data.network.ApiError
 import com.soict.hoangviet.baseproject.data.network.ICallBack
 import com.soict.hoangviet.baseproject.data.network.api.ApiException
-import com.soict.hoangviet.baseproject.data.network.api.BaseRetrofit
 import com.soict.hoangviet.baseproject.data.network.api.NetworkConnectionInterceptor
+import com.soict.hoangviet.baseproject.ui.interactor.BaseInterator
 import io.reactivex.observers.DisposableSingleObserver
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

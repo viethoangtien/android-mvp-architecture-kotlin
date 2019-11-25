@@ -1,10 +1,11 @@
-package com.soict.hoangviet.baseproject.ui.base.presenter
+package com.soict.hoangviet.baseproject.ui.presenter.impl
 
-import com.soict.hoangviet.baseproject.ui.base.interactor.BaseInterator
-import com.soict.hoangviet.baseproject.ui.base.view.BaseView
+import com.soict.hoangviet.baseproject.ui.interactor.BaseInterator
+import com.soict.hoangviet.baseproject.ui.presenter.BasePresenter
+import com.soict.hoangviet.baseproject.ui.view.BaseView
 import io.reactivex.disposables.CompositeDisposable
 
-class BasePresenterImpl<V : BaseView, I : BaseInterator>(mView: V, mInteractor: I) : BasePresenter {
+abstract class BasePresenterImpl<V : BaseView, I : BaseInterator>(mView: V, mInteractor: I) : BasePresenter {
     protected var mView: V? = mView
     protected var mInterator: I? = mInteractor
     protected var mCompositeDisposable = CompositeDisposable()

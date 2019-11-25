@@ -1,9 +1,10 @@
-package com.soict.hoangviet.baseproject.ui.base.view
+package com.soict.hoangviet.baseproject.ui.view.impl
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.soict.hoangviet.baseproject.common.BaseLoadingDialog
-import com.soict.hoangviet.baseproject.ui.base.presenter.BasePresenter
+import com.soict.hoangviet.baseproject.ui.presenter.BasePresenter
+import com.soict.hoangviet.baseproject.ui.view.BaseView
 
 abstract class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseView, BaseFragment.CallBack {
     protected abstract val mLayoutRes: Int
