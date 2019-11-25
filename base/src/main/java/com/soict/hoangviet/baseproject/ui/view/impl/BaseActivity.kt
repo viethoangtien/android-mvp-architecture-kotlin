@@ -8,12 +8,12 @@ import com.soict.hoangviet.baseproject.ui.view.BaseView
 
 abstract class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseView, BaseFragment.CallBack {
     protected abstract val mLayoutRes: Int
-    protected val mPresenter get() = getPresenter()
+    protected val mPresenter : P get() = getPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(mLayoutRes)
-        mPresenter?.onAttach()
+        mPresenter.onAttach()
     }
 
     override fun showLoading() {

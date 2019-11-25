@@ -11,7 +11,7 @@ import com.soict.hoangviet.baseproject.ui.view.BaseView
 
 abstract class BaseFragment<P : BasePresenter> : Fragment(), BaseView {
     private var parentActivity: AppCompatActivity? = null
-    protected val mPresenter get() = getPresenter()
+    protected val mPresenter: P get() = getPresenter()
 
     override
     fun onAttach(context: Context?) {
@@ -24,9 +24,7 @@ abstract class BaseFragment<P : BasePresenter> : Fragment(), BaseView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mPresenter?.let{
-            it.onAttach()
-        }
+        mPresenter.onAttach()
     }
 
     override fun showLoading() {
@@ -39,6 +37,11 @@ abstract class BaseFragment<P : BasePresenter> : Fragment(), BaseView {
         parentActivity?.let {
             BaseLoadingDialog.getInstance(it).hideLoadingDialog()
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        (parentActivity as BaseActivity<*>).onFragmentDetached("")
     }
 
     abstract fun getPresenter(): P
