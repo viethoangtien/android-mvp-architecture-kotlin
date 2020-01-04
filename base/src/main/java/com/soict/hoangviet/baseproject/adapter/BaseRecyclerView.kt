@@ -10,7 +10,7 @@ import com.soict.hoangviet.baseproject.widget.BaseCustomViewRelativeLayout
 import kotlinx.android.synthetic.main.layout_base_recycler_view.view.*
 
 class BaseRecyclerView(context: Context?, attrs: AttributeSet?) :
-        BaseCustomViewRelativeLayout(context, attrs) {
+    BaseCustomViewRelativeLayout(context, attrs) {
     private var mBaseAdapter: EndlessLoadingRecyclerViewAdapter? = null
     private var mLayoutManager: RecyclerView.LayoutManager? = null
     private var mSwipeRefreshListener: BaseSwipeRefreshListener? = null

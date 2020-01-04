@@ -6,6 +6,8 @@ import com.soict.hoangviet.baseproject.data.network.ApiError
 import com.soict.hoangviet.baseproject.data.network.ICallBack
 import com.soict.hoangviet.baseproject.data.network.api.ApiException
 import com.soict.hoangviet.baseproject.data.network.api.NetworkConnectionInterceptor
+import com.soict.hoangviet.baseproject.data.sharepreference.AppSharePreference
+import com.soict.hoangviet.baseproject.data.sharepreference.SharePreference
 import com.soict.hoangviet.baseproject.ui.interactor.BaseInterator
 import io.reactivex.observers.DisposableSingleObserver
 import okhttp3.MultipartBody
@@ -13,9 +15,11 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
 
-open class BaseInteratorImpl() : BaseInterator {
+open class BaseInteratorImpl
+internal constructor(
+    protected var mAppSharePreference: SharePreference?
+) : BaseInterator {
 
     protected fun createRequestBody(request: Any): RequestBody {
         var rawString: String? = null
@@ -30,11 +34,11 @@ open class BaseInteratorImpl() : BaseInterator {
     protected fun <T> getSubscriber(callBack: ICallBack<T>): DisposableSingleObserver<Response<T>> {
         return object : DisposableSingleObserver<Response<T>>() {
             override fun onSuccess(response: Response<T>) {
-                handleResponse(callBack, response!!)
+                handleResponse(callBack, response)
             }
 
             override fun onError(throwable: Throwable) {
-                handleFailure(callBack, throwable!!)
+                handleFailure(callBack, throwable)
             }
 
         }
@@ -58,9 +62,9 @@ open class BaseInteratorImpl() : BaseInterator {
 
     private fun <T> handleFailure(callBack: ICallBack<T>, throwable: Throwable) {
         if (throwable is NetworkConnectionInterceptor.NoConnectivityException) {
-            callBack.onError(ApiException(throwable?.let { it.message!! }))
+            callBack.onError(ApiException(throwable.let { it.message!! }))
         } else {
-            callBack.onError(ApiException(throwable?.let { it.message!! }))
+            callBack.onError(ApiException(throwable.let { it.message!! }))
         }
     }
 
@@ -74,6 +78,7 @@ open class BaseInteratorImpl() : BaseInterator {
             }
             response.code() == ApiConstant.HttpStatusCode.UNAUTHORIZED -> {
                 handleInvalidToken(callBack, response)
+                //Or handle by token interceptor
             }
             else -> {
                 handleErrorResponse(callBack, response)

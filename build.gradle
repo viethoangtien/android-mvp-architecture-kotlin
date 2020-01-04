@@ -56,6 +56,9 @@ ext {
     runnerVersion = '1.0.2'
     espressoVersion = '3.0.2'
 
+    // dependency injection
+    dagger2Version = '2.11'
+
 }
 
 

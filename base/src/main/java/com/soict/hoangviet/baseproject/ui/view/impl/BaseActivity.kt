@@ -5,15 +5,20 @@ import androidx.appcompat.app.AppCompatActivity
 import com.soict.hoangviet.baseproject.common.BaseLoadingDialog
 import com.soict.hoangviet.baseproject.ui.presenter.BasePresenter
 import com.soict.hoangviet.baseproject.ui.view.BaseView
+import dagger.android.AndroidInjection
 
-abstract class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseView, BaseFragment.CallBack {
+abstract class BaseActivity : AppCompatActivity(), BaseView,
+    BaseFragment.CallBack {
     protected abstract val mLayoutRes: Int
-    protected val mPresenter : P get() = getPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(mLayoutRes)
-        mPresenter.onAttach()
+        performDI()
+    }
+
+    private fun performDI() {
+        AndroidInjection.inject(this)
     }
 
     override fun showLoading() {
@@ -23,6 +28,4 @@ abstract class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseView, 
     override fun hideLoading() {
         BaseLoadingDialog.getInstance(this).hideLoadingDialog()
     }
-
-    abstract fun getPresenter(): P
 }

@@ -3,17 +3,9 @@ package com.soict.hoangviet.baseproject.data.sharepreference
 import android.content.Context
 import android.content.SharedPreferences
 import com.soict.hoangviet.baseproject.utils.AppConstant
+import javax.inject.Inject
 
-class AppSharePreference private constructor(var context: Context?) : SharePreference {
-    companion object {
-        private lateinit var instances: AppSharePreference
-        fun getInstance(context: Context): AppSharePreference {
-            if (instances == null) {
-                instances = AppSharePreference(context)
-            }
-            return instances
-        }
-    }
+class AppSharePreference constructor(var context: Context?) : SharePreference {
 
     private val mPrefs: SharedPreferences = context?.getSharedPreferences(AppConstant.PREF_NAME, Context.MODE_PRIVATE)!!
 

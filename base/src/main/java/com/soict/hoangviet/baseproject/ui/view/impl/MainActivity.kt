@@ -1,24 +1,30 @@
 package com.soict.hoangviet.baseproject.ui.view.impl
 
+import android.os.Bundle
 import com.soict.hoangviet.baseproject.R
 import com.soict.hoangviet.baseproject.adapter.BaseRecyclerView
 import com.soict.hoangviet.baseproject.adapter.EndlessLoadingRecyclerViewAdapter
 import com.soict.hoangviet.baseproject.adapter.TestAdapter
-import com.soict.hoangviet.baseproject.ui.interactor.impl.MainInteractorImpl
+import com.soict.hoangviet.baseproject.ui.interactor.MainInteractor
 import com.soict.hoangviet.baseproject.ui.presenter.MainPresenter
-import com.soict.hoangviet.baseproject.ui.presenter.impl.MainPresenterImpl
 import com.soict.hoangviet.baseproject.ui.view.MainView
 import kotlinx.android.synthetic.main.activity_test.*
+import javax.inject.Inject
 
-class MainActivity : BaseActivity<MainPresenter>(), MainView, BaseRecyclerView.BaseSwipeRefreshListener,
-        EndlessLoadingRecyclerViewAdapter.OnLoadingMoreListener {
+class MainActivity : BaseActivity(), MainView, BaseRecyclerView.BaseSwipeRefreshListener,
+    EndlessLoadingRecyclerViewAdapter.OnLoadingMoreListener {
+
+    @Inject
+    lateinit var mPresenter: MainPresenter<MainView, MainInteractor>
+
     private var mTestAdapter: TestAdapter? = null
     private var isLoading = false
     override val mLayoutRes: Int
         get() = R.layout.activity_test
 
-    override fun getPresenter(): MainPresenter {
-        return MainPresenterImpl(this, MainInteractorImpl())
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
     }
 
     override fun initView() {
