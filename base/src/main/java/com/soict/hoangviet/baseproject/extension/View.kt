@@ -178,3 +178,7 @@ fun View.toggleVisibility() : View {
  */
 inline fun <reified T : View> View.find(@IdRes id: Int) : T = findViewById(id)
 
+/**
+ * Extension method to provide quicker access to the [LayoutInflater] from a [View].
+ */
+fun View.getLayoutInflater() = context.getLayoutInflater()

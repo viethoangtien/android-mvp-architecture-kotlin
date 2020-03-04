@@ -4,8 +4,7 @@ import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
-import android.content.Intent.ACTION_CALL
-import android.content.Intent.ACTION_VIEW
+import android.content.Intent.*
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.util.DisplayMetrics
@@ -146,3 +145,29 @@ fun Context.sms(phone: String?, body: String = "") {
  * Extension method to dail telephone number for Context.
  */
 fun Context.dial(tel: String?) = startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel)))
+
+/**
+ * Extension method to browse for Context.
+ */
+fun Context.browse(url: String, newTask: Boolean = false): Boolean {
+    try {
+        val intent = Intent(ACTION_VIEW).apply {
+            data = Uri.parse(url)
+            if (newTask) addFlags(FLAG_ACTIVITY_NEW_TASK)
+        }
+        startActivity(intent)
+        return true
+    } catch (e: Exception) {
+        return false
+    }
+}
+
+/**
+ * Extension method to rate app on PlayStore for Context.
+ */
+fun Context.rate(): Boolean = browse("market://details?id=$packageName") or browse("http://play.google.com/store/apps/details?id=$packageName")
+
+/**
+ * Extension method to provide quicker access to the [LayoutInflater] from [Context].
+ */
+fun Context.getLayoutInflater() = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
