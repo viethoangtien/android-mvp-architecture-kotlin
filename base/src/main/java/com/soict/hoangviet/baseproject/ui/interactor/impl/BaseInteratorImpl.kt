@@ -6,7 +6,6 @@ import com.soict.hoangviet.baseproject.data.network.ApiError
 import com.soict.hoangviet.baseproject.data.network.ICallBack
 import com.soict.hoangviet.baseproject.data.network.api.ApiException
 import com.soict.hoangviet.baseproject.data.network.api.NetworkConnectionInterceptor
-import com.soict.hoangviet.baseproject.data.sharepreference.AppSharePreference
 import com.soict.hoangviet.baseproject.data.sharepreference.SharePreference
 import com.soict.hoangviet.baseproject.ui.interactor.BaseInterator
 import io.reactivex.observers.DisposableSingleObserver

@@ -1,10 +1,10 @@
 package com.soict.hoangviet.baseproject.ui.view.impl
 
-import android.os.Bundle
 import com.soict.hoangviet.baseproject.R
 import com.soict.hoangviet.baseproject.adapter.BaseRecyclerView
 import com.soict.hoangviet.baseproject.adapter.EndlessLoadingRecyclerViewAdapter
 import com.soict.hoangviet.baseproject.adapter.TestAdapter
+import com.soict.hoangviet.baseproject.extension.getColorRes
 import com.soict.hoangviet.baseproject.ui.interactor.MainInteractor
 import com.soict.hoangviet.baseproject.ui.presenter.MainPresenter
 import com.soict.hoangviet.baseproject.ui.view.MainView
@@ -22,11 +22,6 @@ class MainActivity : BaseActivity(), MainView, BaseRecyclerView.BaseSwipeRefresh
     override val mLayoutRes: Int
         get() = R.layout.activity_test
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initView()
-    }
-
     override fun initView() {
         initAdapter()
         mPresenter.fetchListDriver()
@@ -41,7 +36,6 @@ class MainActivity : BaseActivity(), MainView, BaseRecyclerView.BaseSwipeRefresh
     }
 
     override fun initListener() {
-
     }
 
     override fun onFragmentAttached() {

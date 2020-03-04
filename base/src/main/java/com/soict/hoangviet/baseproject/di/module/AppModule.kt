@@ -22,6 +22,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    internal fun provideSharePreferences(context: Context): SharePreference = AppSharePreference(context)
+    internal fun provideSharePreferences(context: Context): SharePreference =
+        AppSharePreference(context)
 
 }

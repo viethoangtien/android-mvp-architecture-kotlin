@@ -3,7 +3,6 @@ package com.soict.hoangviet.baseproject.ui.view.impl
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.soict.hoangviet.baseproject.common.BaseLoadingDialog
-import com.soict.hoangviet.baseproject.ui.presenter.BasePresenter
 import com.soict.hoangviet.baseproject.ui.view.BaseView
 import dagger.android.AndroidInjection
 
@@ -15,6 +14,8 @@ abstract class BaseActivity : AppCompatActivity(), BaseView,
         super.onCreate(savedInstanceState)
         setContentView(mLayoutRes)
         performDI()
+        initView()
+        initListener()
     }
 
     private fun performDI() {
@@ -28,4 +29,5 @@ abstract class BaseActivity : AppCompatActivity(), BaseView,
     override fun hideLoading() {
         BaseLoadingDialog.getInstance(this).hideLoadingDialog()
     }
+
 }

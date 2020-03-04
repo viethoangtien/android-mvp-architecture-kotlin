@@ -1,6 +1,7 @@
 package com.soict.hoangviet.baseproject.di.component
 
 import android.app.Application
+import android.content.Context
 import com.soict.hoangviet.baseproject.application.BaseApplication
 import com.soict.hoangviet.baseproject.di.builder.ActivityBuilder
 import com.soict.hoangviet.baseproject.di.module.AppModule
@@ -17,6 +18,8 @@ import javax.inject.Singleton
 )
 @Singleton
 interface AppComponent {
+
+    fun getContext(): Context
 
     @Component.Builder
     interface Builder {
