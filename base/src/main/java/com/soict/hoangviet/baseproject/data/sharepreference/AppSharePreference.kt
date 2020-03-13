@@ -3,41 +3,47 @@ package com.soict.hoangviet.baseproject.data.sharepreference
 import android.content.Context
 import android.content.SharedPreferences
 import com.soict.hoangviet.baseproject.utils.AppConstant
-import javax.inject.Inject
 
 class AppSharePreference constructor(var context: Context?) : SharePreference {
 
-    private val mPrefs: SharedPreferences = context?.getSharedPreferences(AppConstant.PREF_NAME, Context.MODE_PRIVATE)!!
+    private val mPrefs: SharedPreferences =
+        context?.getSharedPreferences(AppConstant.PREF_NAME, Context.MODE_PRIVATE)!!
 
-    override fun setString(key: String, value: String) {
-        mPrefs.edit().putString(key, value).apply()
-    }
-
-    override fun getString(key: String): String {
-        return mPrefs.getString(key, "")
-    }
-
-    override fun setBoolean(key: String, value: Boolean) {
-        mPrefs.edit().putBoolean(key, value).apply()
-    }
-
-    override fun getBoolean(key: String): Boolean {
-        return mPrefs.getBoolean(key, false)
-    }
-
-    override fun setArrayListString(arrayName: String, list: ArrayList<String>) {
+    override fun <T> put(key: String, value: T) {
         val editor = mPrefs.edit()
-        editor.putInt("${arrayName}_size", list.size)
-        list.forEachIndexed { index, item ->
-            editor.putString("${arrayName}_${index}", item)
+        when (value) {
+            is Boolean -> editor.putBoolean(key, value)
+            is String -> editor.putString(key, value)
+            is Int -> editor.putInt(key, value)
+            is Long -> editor.putLong(key, value)
+            is Float -> editor.putFloat(key, value)
+            else -> throw IllegalStateException("Type of value $key is not supported")
         }
         editor.apply()
     }
 
+    override fun <T> get(key: String, clazz: Class<T>): T {
+        return when (clazz) {
+            Boolean::class.java -> mPrefs.getBoolean(key, false) as T
+            String::class.java -> mPrefs.getString(key, "") as T
+            Int::class.java -> mPrefs.getInt(key, -1) as T
+            Long::class.java -> mPrefs.getLong(key, -1) as T
+            Float::class.java -> mPrefs.getFloat(key, -1.0f) as T
+            else -> throw IllegalStateException("Type of value $key is not supported")
+        }
+    }
+
+    override fun setArrayListString(arrayName: String, list: ArrayList<String>) {
+        put("${arrayName}_size", list.size)
+        list.forEachIndexed { index, item ->
+            put("${arrayName}_${index}", item)
+        }
+    }
+
     override fun getArrayListString(arrayName: String): ArrayList<String> {
         val list = arrayListOf<String>()
-        for (index in 0..mPrefs.getInt("${arrayName}_size", -1)) {
-            list.add(mPrefs.getString("${arrayName}_${index}", ""))
+        for (index in 0..get("${arrayName}_size", Int::class.java)) {
+            list.add(get("${arrayName}_${index}", String::class.java))
         }
         return list
     }
