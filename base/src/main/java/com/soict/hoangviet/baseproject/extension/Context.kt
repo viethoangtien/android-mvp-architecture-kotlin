@@ -1,20 +1,25 @@
 package com.soict.hoangviet.baseproject.extension
 
+import android.app.Activity
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.content.Intent.*
 import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.net.Uri
+import android.os.Build
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
+import java.lang.ref.WeakReference
 
 /**
  * Extension method to find a device width in pixels
@@ -165,9 +170,36 @@ fun Context.browse(url: String, newTask: Boolean = false): Boolean {
 /**
  * Extension method to rate app on PlayStore for Context.
  */
-fun Context.rate(): Boolean = browse("market://details?id=$packageName") or browse("http://play.google.com/store/apps/details?id=$packageName")
+fun Context.rate(): Boolean =
+    browse("market://details?id=$packageName") or browse("http://play.google.com/store/apps/details?id=$packageName")
 
 /**
  * Extension method to provide quicker access to the [LayoutInflater] from [Context].
  */
-fun Context.getLayoutInflater() = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+fun Context.getLayoutInflater() =
+    getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+/*
+ * Check network connection
+ */
+fun Context.hasNetworkConnection(): Boolean? {
+    var isConnected: Boolean? = false // Initial Value
+    val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+    if (activeNetwork != null && activeNetwork.isConnected)
+        isConnected = true
+    return isConnected
+}
+
+/*
+ * Set statusbar color
+ */
+fun Context.setSatatusBarColor(context: WeakReference<Activity>, @ColorRes colorResId: Int) {
+    if (Build.VERSION.SDK_INT >= 21) {
+        val window = context.get()?.window
+        window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window?.statusBarColor = context?.get()!!.resources.getColor(colorResId)
+    }
+
+}
