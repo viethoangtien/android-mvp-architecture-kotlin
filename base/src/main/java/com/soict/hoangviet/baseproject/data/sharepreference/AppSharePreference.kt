@@ -6,8 +6,8 @@ import com.soict.hoangviet.baseproject.utils.AppConstant
 
 class AppSharePreference constructor(var context: Context?) : SharePreference {
 
-    private val mPrefs: SharedPreferences =
-        context?.getSharedPreferences(AppConstant.PREF_NAME, Context.MODE_PRIVATE)!!
+    val mPrefs: SharedPreferences
+        get() = context?.getSharedPreferences(AppConstant.PREF_NAME, Context.MODE_PRIVATE)!!
 
     override fun <T> put(key: String, value: T) {
         val editor = mPrefs.edit()

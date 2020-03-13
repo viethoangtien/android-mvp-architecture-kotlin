@@ -6,6 +6,7 @@ import com.soict.hoangviet.baseproject.R
 import com.soict.hoangviet.baseproject.adapter.BaseRecyclerView
 import com.soict.hoangviet.baseproject.adapter.EndlessLoadingRecyclerViewAdapter
 import com.soict.hoangviet.baseproject.adapter.TestAdapter
+import com.soict.hoangviet.baseproject.delegation.BooleanSharePreferenceDelegate
 import com.soict.hoangviet.baseproject.extension.TAG
 import com.soict.hoangviet.baseproject.extension.getColorRes
 import com.soict.hoangviet.baseproject.extension.runDelayed
