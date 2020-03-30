@@ -18,10 +18,6 @@ class AppModule {
 
     @Provides
     @Singleton
-    internal fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
-
-    @Provides
-    @Singleton
     internal fun provideSharePreferences(context: Context): SharePreference =
         AppSharePreference(context)
 

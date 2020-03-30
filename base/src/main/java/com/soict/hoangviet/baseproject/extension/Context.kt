@@ -21,6 +21,10 @@ import androidx.annotation.*
 import androidx.core.content.ContextCompat
 import java.lang.ref.WeakReference
 
+fun Context.inflate(layoutRes: Int, viewGroup: ViewGroup, attachToRoot: Boolean = false): View {
+    return LayoutInflater.from(this).inflate(layoutRes, viewGroup, attachToRoot)
+}
+
 /**
  * Extension method to find a device width in pixels
  */
@@ -201,5 +205,4 @@ fun Context.setSatatusBarColor(context: WeakReference<Activity>, @ColorRes color
         window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window?.statusBarColor = context?.get()!!.resources.getColor(colorResId)
     }
-
 }

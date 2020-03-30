@@ -32,5 +32,9 @@ interface ApiService {
 
     @GET("/v1/drivers/{${ApiConstant.RequestParam.ID}}/posts")
     @Headers("Content-Type:application/json")
-    fun getListDriver(@Header(ApiConstant.RequestParam.AUTHORIZATION_HEADER) authToken: String, @Path(ApiConstant.RequestParam.ID) id: Int, @QueryMap data: MutableMap<String, Any>): Single<Response<BaseListEntityResponse<TestResponse>>>
+    fun getListDriver(
+        @Header(ApiConstant.RequestParam.AUTHORIZATION_HEADER) authToken: String, @Path(
+            ApiConstant.RequestParam.ID
+        ) id: Int, @QueryMap data: MutableMap<String, Any>
+    ): Single<BaseListEntityResponse<TestResponse>>
 }

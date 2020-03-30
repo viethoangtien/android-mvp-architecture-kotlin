@@ -16,7 +16,7 @@ object RetrofitUtil {
 
     private fun createFileRequestBody(mFile: File, fileUri: Uri): RequestBody {
         return RequestBody.create(
-            MediaType.parse(BaseApplication().getContext().contentResolver.getType(fileUri)),
+            MediaType.parse(BaseApplication.instance.contentResolver.getType(fileUri)),
             mFile
         )
     }

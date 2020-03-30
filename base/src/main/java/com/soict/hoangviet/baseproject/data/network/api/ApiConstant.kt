@@ -80,6 +80,7 @@ object ApiConstant {
     interface HttpMessage {
         companion object {
             const val ERROR_TRY_AGAIN = "Có lỗi xảy ra. Vui lòng thử lại"
+            const val TIME_OUT = "Thời gian kết nối quá lâu. Vui lòng thử lại"
         }
     }
 

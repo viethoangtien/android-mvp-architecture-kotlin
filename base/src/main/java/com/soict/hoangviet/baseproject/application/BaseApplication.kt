@@ -14,7 +14,7 @@ import javax.inject.Inject
 class BaseApplication : Application(), HasActivityInjector {
 
     @Inject
-    lateinit internal var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+    internal lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun activityInjector(): AndroidInjector<Activity> {
         return activityDispatchingAndroidInjector
@@ -33,9 +33,5 @@ class BaseApplication : Application(), HasActivityInjector {
             .application(this)
             .build()
             .inject(this)
-    }
-
-    fun getContext(): Context {
-        return instance
     }
 }

@@ -11,14 +11,14 @@ import kotlinx.android.synthetic.main.item_test.view.*
 
 class TestAdapter(context: Context) : EndlessLoadingRecyclerViewAdapter(context) {
     override fun initLoadingViewHolder(parent: ViewGroup, viewType: Int): LoadingViewHolder {
-        return LoadingViewHolder(context.inflate(R.layout.layout_loadmore))
+        return LoadingViewHolder(parent.inflate(R.layout.layout_loadmore))
     }
 
     override fun onBindLoadingViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     }
 
     override fun initNormalViewHolder(parent: ViewGroup, viewType: Int): NormalViewHoler? {
-        return TestViewHolder(context.inflate(R.layout.item_test, parent, false))
+        return TestViewHolder(parent.inflate(R.layout.item_test))
     }
 
     override fun bindNormalViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

@@ -1,28 +1,20 @@
 package com.soict.hoangviet.baseproject.ui.view.impl
 
-import android.os.Handler
-import android.util.Log
 import com.soict.hoangviet.baseproject.R
 import com.soict.hoangviet.baseproject.adapter.BaseRecyclerView
 import com.soict.hoangviet.baseproject.adapter.EndlessLoadingRecyclerViewAdapter
 import com.soict.hoangviet.baseproject.adapter.TestAdapter
-import com.soict.hoangviet.baseproject.delegation.BooleanSharePreferenceDelegate
-import com.soict.hoangviet.baseproject.extension.TAG
-import com.soict.hoangviet.baseproject.extension.getColorRes
-import com.soict.hoangviet.baseproject.extension.runDelayed
-import com.soict.hoangviet.baseproject.extension.toast
 import com.soict.hoangviet.baseproject.ui.interactor.MainInteractor
 import com.soict.hoangviet.baseproject.ui.presenter.MainPresenter
 import com.soict.hoangviet.baseproject.ui.view.MainView
 import kotlinx.android.synthetic.main.activity_test.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainView, BaseRecyclerView.BaseSwipeRefreshListener,
     EndlessLoadingRecyclerViewAdapter.OnLoadingMoreListener {
 
     @Inject
-    lateinit var mPresenter: MainPresenter<MainView, MainInteractor>
+    lateinit var mPresenter: MainPresenter
 
     private var mTestAdapter: TestAdapter? = null
     private var isLoading = false
@@ -30,6 +22,7 @@ class MainActivity : BaseActivity(), MainView, BaseRecyclerView.BaseSwipeRefresh
         get() = R.layout.activity_test
 
     override fun initView() {
+        mPresenter.onAttach(this)
         initAdapter()
         mPresenter.fetchListDriver()
     }

@@ -1,8 +1,8 @@
 package com.soict.hoangviet.baseproject.ui.presenter
 
-import com.soict.hoangviet.baseproject.ui.interactor.BaseInterator
-import com.soict.hoangviet.baseproject.ui.view.BaseView
+import com.soict.hoangviet.baseproject.ui.interactor.MainInteractor
+import com.soict.hoangviet.baseproject.ui.view.MainView
 
-interface MainPresenter<V : BaseView, I : BaseInterator> : BasePresenter<V, I> {
+interface MainPresenter : BasePresenter<MainView, MainInteractor> {
     fun fetchListDriver()
 }
