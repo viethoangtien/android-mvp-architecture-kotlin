@@ -2,14 +2,14 @@ package com.soict.hoangviet.baseproject.ui.view.impl
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.soict.hoangviet.baseproject.common.BaseLoadingDialog
-import com.soict.hoangviet.baseproject.ui.presenter.BasePresenter
 import com.soict.hoangviet.baseproject.ui.view.BaseView
-import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
+import java.util.*
 
 abstract class BaseFragment : Fragment(), BaseView {
     private var parentActivity: AppCompatActivity? = null
@@ -55,4 +55,39 @@ abstract class BaseFragment : Fragment(), BaseView {
         fun onFragmentAttached()
         fun onFragmentDetached(tag: String)
     }
+
+    fun setData(data: Map<String, Any>) {
+        if (data == null || data.isEmpty()) {
+            arguments = Bundle()
+            return
+        }
+        val bundle = Bundle()
+        for ((key, value) in data) {
+            when (value) {
+                is String -> bundle.putString(key, value)
+                is Double -> bundle.putDouble(key, value)
+                is Int -> bundle.putInt(key, value)
+                is Float -> bundle.putFloat(key, value)
+                is Boolean -> bundle.putBoolean(key, value)
+                is Parcelable -> bundle.putParcelable(key, value)
+                is Array<*> -> {
+                    if (value.size > 0) {
+                        when (value[0]) {
+                            is String -> bundle.putStringArray(key, value as Array<String>?)
+                        }
+                    }
+                }
+                is ArrayList<*> -> {
+                    if (value.size > 0) {
+                        when (value[0]) {
+                            is String -> bundle.putStringArrayList(key, value as ArrayList<String>)
+                            is Parcelable -> bundle.putParcelableArrayList(key, value as ArrayList<Parcelable>)
+                        }
+                    }
+                }
+            }
+        }
+        arguments = bundle
+    }
+
 }
