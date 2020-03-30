@@ -61,9 +61,9 @@ object ApiConstant {
 
     interface Timeout {
         companion object {
-            const val CONNECT = 2L
-            const val READ = 2L
-            const val WRITE = 2L
+            const val CONNECT = 5L
+            const val READ = 5L
+            const val WRITE = 5L
             const val CALL = 10L
         }
     }

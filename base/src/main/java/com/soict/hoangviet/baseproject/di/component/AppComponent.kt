@@ -5,6 +5,7 @@ import android.content.Context
 import com.soict.hoangviet.baseproject.application.BaseApplication
 import com.soict.hoangviet.baseproject.di.builder.ActivityBuilder
 import com.soict.hoangviet.baseproject.di.module.AppModule
+import com.soict.hoangviet.baseproject.di.module.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -14,6 +15,7 @@ import javax.inject.Singleton
     modules = [
         (AndroidInjectionModule::class),
         (AppModule::class),
+        (NetworkModule::class),
         (ActivityBuilder::class)]
 )
 @Singleton
