@@ -15,13 +15,7 @@ class BaseLoadingDialog private constructor(private var context: Context) {
     //Before initialize instance of class
     //Before class constructor
     companion object {
-        private var instance: BaseLoadingDialog? = null
-        fun getInstance(context: Context): BaseLoadingDialog {
-            if (instance == null) {
-                instance = BaseLoadingDialog(context)
-            }
-            return instance!!
-        }
+        fun getInstance(context: Context) = BaseLoadingDialog(context)
     }
 
     //After primary constructor
