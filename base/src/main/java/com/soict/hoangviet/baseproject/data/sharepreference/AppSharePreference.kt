@@ -2,12 +2,12 @@ package com.soict.hoangviet.baseproject.data.sharepreference
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.soict.hoangviet.baseproject.utils.AppConstant
+import com.soict.hoangviet.baseproject.utils.Define
 
 class AppSharePreference constructor(var context: Context?) : SharePreference {
 
     val mPrefs: SharedPreferences
-        get() = context?.getSharedPreferences(AppConstant.PREF_NAME, Context.MODE_PRIVATE)!!
+        get() = context?.getSharedPreferences(Define.PREF_NAME, Context.MODE_PRIVATE)!!
 
     override fun <T> put(key: String, value: T) {
         val editor = mPrefs.edit()

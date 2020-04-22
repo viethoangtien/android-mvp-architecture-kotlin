@@ -9,6 +9,31 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.snackbar.Snackbar
 
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
+fun View.gone() {
+    visibility = View.GONE
+}
+
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+
+const val CLICK_THROTTLE_DELAY = 600L
+
+fun View.onAvoidDoubleClick(
+    throttleDelay: Long = CLICK_THROTTLE_DELAY,
+    onClick: (View) -> Unit
+) {
+    setOnClickListener {
+        onClick(this)
+        isClickable = false
+        postDelayed({ isClickable = true }, throttleDelay)
+    }
+}
+
 /**
  * Extension method to provide simpler access to {@link View#getResources()#getString(int)}.
  */

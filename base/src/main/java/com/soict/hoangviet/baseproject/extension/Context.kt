@@ -18,6 +18,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import java.lang.ref.WeakReference
 
@@ -67,8 +68,17 @@ inline fun <reified T : Any> Context.intent(body: Intent.() -> Unit): Intent {
  * Extension method to startActivity for Context.
  */
 
-inline fun <reified T : Any> Context?.startActivity() =
+inline fun <reified T : Any> Context?.launchActivity() =
     this?.startActivity(Intent(this, T::class.java))
+
+inline fun <reified T : Any> Context?.launchActivity(func: Intent.() -> Intent) =
+    this?.startActivity(Intent(this, T::class.java).func())
+
+inline fun <reified T : Any> AppCompatActivity.launchActivity(
+    func: Intent.() -> Intent,
+    requestCode: Int = -1
+) =
+    startActivityForResult(Intent(this, T::class.java).func(), requestCode)
 
 /**
  * Extension method to show toast for Context.

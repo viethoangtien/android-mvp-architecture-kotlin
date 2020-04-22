@@ -4,75 +4,61 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.soict.hoangviet.baseproject.R
-import com.soict.hoangviet.baseproject.ui.view.impl.BaseFragment
 
 fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
     val fragmentTransaction = beginTransaction()
     fragmentTransaction.func()
-    fragmentTransaction.commitAllowingStateLoss()
+    fragmentTransaction.commit()
+}
+
+fun AppCompatActivity.hideFragmentByTag(tag: String) {
+    val ft = supportFragmentManager.beginTransaction()
+    val frag = supportFragmentManager.findFragmentByTag(tag)
+    frag?.let {
+        ft.remove(it)
+    }
+    ft.addToBackStack(null)
 }
 
 fun AppCompatActivity.addFragment(
     frameId: Int,
     fragment: Fragment,
-    data: Map<String, Any> = mutableMapOf(),
-    hasAnimation: Boolean = true
+    bundle: Bundle? = null,
+    addToBackStack: Boolean = false
 ) {
     supportFragmentManager.inTransaction {
-        (fragment as BaseFragment).setData(data)
-        if (hasAnimation) {
-            setCustomAnimations(R.anim.trans_right_in, R.anim.trans_right_in)
-        } else {
-            setCustomAnimations(R.anim.animation_none, R.anim.animation_none)
+        if (addToBackStack) {
+            addToBackStack(fragment::class.java.simpleName)
         }
+        bundle?.let { fragment.arguments = it }
         add(frameId, fragment)
-    }
-}
-
-fun AppCompatActivity.addAndToBackStack(
-    frameId: Int,
-    fragment: Fragment,
-    data: Map<String, Any> = mutableMapOf(),
-    hasAnimation: Boolean = true
-) {
-    supportFragmentManager.inTransaction {
-        (fragment as BaseFragment).setData(data)
-        if (hasAnimation) {
-            setCustomAnimations(R.anim.trans_right_in, R.anim.trans_right_in)
-        } else {
-            setCustomAnimations(R.anim.animation_none, R.anim.animation_none)
-        }
-        add(frameId, fragment)
-        addToBackStack(null)
     }
 }
 
 fun AppCompatActivity.replaceFragment(
     frameId: Int,
     fragment: Fragment,
-    data: Map<String, Any> = mutableMapOf(),
-    hasAnimation: Boolean = true
+    bundle: Bundle? = null,
+    addToBackStack: Boolean = false
 ) {
     supportFragmentManager.inTransaction {
-        (fragment as BaseFragment).setData(data)
-        if (hasAnimation) setCustomAnimations(
-            R.anim.trans_left_in, R.anim.trans_left_out,
-            R.anim.trans_right_in, R.anim.trans_right_out
-        )
+        if (addToBackStack) {
+            addToBackStack(fragment::class.java.simpleName)
+        }
+        bundle?.let { fragment.arguments = it }
         replace(frameId, fragment)
     }
 }
 
-fun AppCompatActivity.replaceAndToBackStack(frameId: Int, fragment: Fragment) {
-    supportFragmentManager.inTransaction {
-        replace(frameId, fragment)
-        addToBackStack(null)
+fun Fragment.removeFragment() {
+    requireActivity().supportFragmentManager.inTransaction {
+        remove(this@removeFragment)
     }
 }
 

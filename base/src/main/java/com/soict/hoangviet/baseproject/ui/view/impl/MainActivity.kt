@@ -4,7 +4,6 @@ import com.soict.hoangviet.baseproject.R
 import com.soict.hoangviet.baseproject.adapter.BaseRecyclerView
 import com.soict.hoangviet.baseproject.adapter.EndlessLoadingRecyclerViewAdapter
 import com.soict.hoangviet.baseproject.adapter.TestAdapter
-import com.soict.hoangviet.baseproject.ui.interactor.MainInteractor
 import com.soict.hoangviet.baseproject.ui.presenter.MainPresenter
 import com.soict.hoangviet.baseproject.ui.view.MainView
 import kotlinx.android.synthetic.main.activity_test.*
