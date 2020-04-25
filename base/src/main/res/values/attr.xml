@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ClearableEditText">
+        <attr name="android:text" />
+        <attr name="android:textColor" />
+        <attr name="android:textSize" />
+        <attr name="android:hint" />
+        <attr name="android:lines" />
+        <attr name="android:inputType" />
+        <attr name="android:textColorHint" />
+        <attr name="edtPadding" format="dimension" />
+        <attr name="edtIcon" format="integer|reference" />
+        <attr name="edtUnderlineColor" format="color" />
+        <attr name="edtBackground" format="integer|reference" />
+        <attr name="edtGravityCentered" format="boolean" />
+        <attr name="clearButtonDrawable" format="integer|reference" />
+        <attr name="clearButtonSize" format="dimension" />
+        <attr name="edtEditable" format="boolean" />
+        <attr name="edtMaxLength" format="integer" />
+    </declare-styleable>
+</resources>

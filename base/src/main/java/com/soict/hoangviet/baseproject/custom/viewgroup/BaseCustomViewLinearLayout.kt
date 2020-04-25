@@ -1,4 +1,4 @@
-package com.soict.hoangviet.baseproject.custom.viewgroup
+package com.soict.hoangviet.baseproject.widget
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -7,8 +7,8 @@ import android.widget.LinearLayout
 import com.soict.hoangviet.baseproject.extension.inflate
 
 abstract class BaseCustomViewLinearLayout : LinearLayout {
-    protected abstract var layoutRes: Int
-    protected abstract var styleRes: IntArray?
+    abstract val layoutRes: Int
+    protected open val styleRes: IntArray? = null
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -23,9 +23,11 @@ abstract class BaseCustomViewLinearLayout : LinearLayout {
     }
 
     private fun initStyleable(it: AttributeSet) {
-        val typeArray = context.obtainStyledAttributes(it, styleRes, 0, 0)
-        initDataFromStyleable(typeArray)
-        typeArray.recycle()
+        if (styleRes != null && styleRes?.isNotEmpty()!!) {
+            val typeArray = context.obtainStyledAttributes(it, styleRes, 0, 0)
+            initDataFromStyleable(typeArray)
+            typeArray.recycle()
+        }
     }
 
     protected open fun initDataFromStyleable(typeArray: TypedArray?) {

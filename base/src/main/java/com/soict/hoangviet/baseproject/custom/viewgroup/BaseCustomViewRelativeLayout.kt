@@ -1,4 +1,4 @@
-package com.soict.hoangviet.baseproject.custom.viewgroup
+package com.soict.hoangviet.baseproject.widget
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -7,7 +7,7 @@ import android.widget.RelativeLayout
 import com.soict.hoangviet.baseproject.extension.inflate
 
 abstract class BaseCustomViewRelativeLayout : RelativeLayout {
-    protected abstract val layoutRes: Int
+    abstract val layoutRes: Int
     protected open val styleRes: IntArray? = null
 
     constructor(context: Context?) : this(context, null)
@@ -33,14 +33,11 @@ abstract class BaseCustomViewRelativeLayout : RelativeLayout {
     protected open fun initDataFromStyleable(typeArray: TypedArray?) {
     }
 
-    protected open fun initView() {
-    }
+    abstract fun initView()
 
-    protected open fun initData() {
-    }
+    abstract fun initData()
 
-    protected open fun initListener() {
-    }
+    abstract fun initListener()
 
     private fun setLayout() {
         context.inflate(layoutRes, this, true)
