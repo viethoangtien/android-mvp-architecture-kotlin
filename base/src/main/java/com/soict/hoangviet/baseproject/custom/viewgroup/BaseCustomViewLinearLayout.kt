@@ -1,4 +1,4 @@
-package com.soict.hoangviet.baseproject.widget
+package com.soict.hoangviet.baseproject.custom.viewgroup
 
 import android.content.Context
 import android.content.res.TypedArray
