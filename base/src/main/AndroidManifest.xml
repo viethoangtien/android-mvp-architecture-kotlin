@@ -17,7 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.view.impl.AnhKtActivity"></activity>
         <activity android:name=".ui.view.impl.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +26,7 @@
         </activity>
 
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name=".provider.GenericFileProvider"
             android:authorities="@string/file_provider"
             android:exported="false"
             android:grantUriPermissions="true">

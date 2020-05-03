@@ -1,6 +1,7 @@
 package com.soict.hoangviet.baseproject.extension
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Base64
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -26,3 +27,6 @@ fun String.isValidatePhoneNumber(): Boolean {
 fun String.isValidatePassword(): Boolean {
     return Pattern.compile(STRONG_PASSWORD_PATTERN).matcher(this).matches()
 }
+
+fun String.toUri() = Uri.parse(this)
+

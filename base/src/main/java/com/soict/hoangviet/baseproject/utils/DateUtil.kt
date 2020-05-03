@@ -1,4 +1,4 @@
-package beetech.com.carbooking.util
+package com.soict.hoangviet.baseproject.utils
 
 import android.text.TextUtils
 import android.util.Log
@@ -38,6 +38,8 @@ object DateUtil {
     val DATE_FORMAT_24 = "dd/MM/yyyy HH:mm"
     val DATE_FORMAT_25 = "HH"
     val DATE_FORMAT_26 = "hh:mm a - dd/MM/yyyy"
+    val DATE_FORMAT_27 = "MMM dd"
+    val DATE_FORMAT_28 = "yyyy-MM-dd HH:mm:ss.SSSSSS"
 
     val TIME_0H = "00:00:00"
     val TIME_7H = "07:00:00"
@@ -79,6 +81,13 @@ object DateUtil {
             time.append(cal.get(Calendar.YEAR))
             return time.toString()
         }
+
+    fun getDateValue(value: String): String {
+        if (value.length == 1) {
+            return "0${value}"
+        }
+        return value
+    }
 
     fun getDayName(day: String): String {
         when (day) {
@@ -207,6 +216,14 @@ object DateUtil {
             else -> return null
         }
     }
+
+    fun convertTimeStampToDateFormat(pattern: String, timestamp: Long): String {
+        val dateFormat = SimpleDateFormat(pattern, Locale.getDefault())
+        val date = Date(timestamp * 1000)
+        return dateFormat.format(date)
+    }
+
+    fun getTimeStampBuCurrentDate() = Date().time / 1000
 
     fun getStampCurrentDay(pattern: String): String {
         val calendar = Calendar.getInstance()
@@ -350,7 +367,10 @@ object DateUtil {
         //            return "Đang diễn ra";
         //        } else
         if (current.timeInMillis < dateTimeStart.timeInMillis) {
-            if (TextUtils.isEmpty(timeStart) && current.get(Calendar.YEAR) == dateTimeStart.get(Calendar.YEAR)) {
+            if (TextUtils.isEmpty(timeStart) && current.get(Calendar.YEAR) == dateTimeStart.get(
+                    Calendar.YEAR
+                )
+            ) {
                 return "Còn " + (dateTimeStart.get(Calendar.DAY_OF_YEAR) - current.get(Calendar.DAY_OF_YEAR)) + " ngày nữa"
             }
             val now = current.timeInMillis
@@ -380,7 +400,9 @@ object DateUtil {
     }
 
     fun isSameDay(cal1: Calendar, cal2: Calendar): Boolean {
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(
+            Calendar.DAY_OF_YEAR
+        )
     }
 
     fun getDateTimeDisplayByFormat(format: String, calendar: Calendar): String? {

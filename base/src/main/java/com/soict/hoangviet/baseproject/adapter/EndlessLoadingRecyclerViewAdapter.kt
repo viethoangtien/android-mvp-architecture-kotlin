@@ -10,7 +10,6 @@ abstract class EndlessLoadingRecyclerViewAdapter(context: Context) : RecyclerVie
     companion object {
         const val VIEW_TYPE_NORMAL_LOADING = -1
     }
-
     private var mListener: OnLoadingMoreListener? = null
     private var isLoading: Boolean = false
     private var enableLoadMore: Boolean = false

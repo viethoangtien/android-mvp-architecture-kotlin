@@ -1,5 +1,6 @@
 package com.soict.hoangviet.baseproject.extension
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
@@ -10,6 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import io.reactivex.Completable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
     val fragmentTransaction = beginTransaction()
@@ -85,4 +91,22 @@ fun Activity.hideSoftKeyboard() {
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
     }
+}
+
+@SuppressLint("CheckResult")
+fun completable(func: () -> Unit): Disposable {
+    return Completable.fromCallable {
+    }
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe {
+            func()
+        }
+}
+
+fun completableTimer(func: () -> Unit, timer: Long = 2L): Disposable {
+    return Completable.timer(timer, TimeUnit.SECONDS)
+        .subscribe {
+            func()
+        }
 }
