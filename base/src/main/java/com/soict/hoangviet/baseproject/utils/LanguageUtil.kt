@@ -2,19 +2,23 @@ package com.soict.hoangviet.baseproject.utils
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
+import android.os.LocaleList
 import java.util.*
 
 object LanguageUtil {
-    fun setCurrentLanguage(activity: Activity, codeLocale: String) {
+    fun setCurrentLanguage(context: Context, codeLocale: String): Context {
         val locale = Locale(codeLocale)
-        Locale.setDefault(locale)
-        val configuration = activity.baseContext.applicationContext.resources.configuration
+        val resources = context.resources
+        val configuration = resources.configuration
         configuration.setLocale(locale)
-        activity.baseContext.resources?.let { resource ->
-            resource.updateConfiguration(configuration, resource.displayMetrics)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            val localeList = LocaleList(locale)
+            configuration.locales = localeList
+        } else {
+            configuration.setLocale(locale)
         }
-        activity.baseContext.applicationContext.resources?.let { resource ->
-            resource.updateConfiguration(configuration, resource.displayMetrics)
-        }
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+        return context
     }
 }
