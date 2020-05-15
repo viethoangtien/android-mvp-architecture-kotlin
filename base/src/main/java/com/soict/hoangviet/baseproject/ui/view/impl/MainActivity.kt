@@ -19,6 +19,10 @@ class MainActivity : BaseActivity(), MainView, BaseRecyclerView.BaseSwipeRefresh
     private var isLoading = false
     override val mLayoutRes: Int
         get() = R.layout.activity_test
+    override val mOnAttachListener: (() -> Unit)?
+        get() = {}
+    override val mOnDetachListener: ((String) -> Unit)?
+        get() = {}
 
     override fun initView() {
         mPresenter.onAttach(this)
@@ -35,12 +39,6 @@ class MainActivity : BaseActivity(), MainView, BaseRecyclerView.BaseSwipeRefresh
     }
 
     override fun initListener() {
-    }
-
-    override fun onFragmentAttached() {
-    }
-
-    override fun onFragmentDetached(tag: String) {
     }
 
     override fun onSwipeRefresh() {

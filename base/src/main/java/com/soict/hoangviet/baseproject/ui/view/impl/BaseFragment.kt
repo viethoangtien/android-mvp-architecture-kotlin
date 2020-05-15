@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.soict.hoangviet.baseproject.common.BaseLoadingDialog
+import com.soict.hoangviet.baseproject.extension.toast
 import com.soict.hoangviet.baseproject.ui.view.BaseView
 import dagger.android.support.AndroidSupportInjection
 import java.util.*
@@ -20,7 +21,7 @@ abstract class BaseFragment : Fragment(), BaseView {
         if (context is BaseActivity) {
             parentActivity = context
         }
-        (parentActivity as BaseActivity)?.onFragmentAttached()
+        (parentActivity as BaseActivity).mOnAttachListener?.invoke()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,8 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+        initListener()
     }
 
     override fun showLoading() {
@@ -48,12 +51,7 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onDetach() {
         super.onDetach()
-        (parentActivity as BaseActivity).onFragmentDetached("")
-    }
-
-    interface CallBack {
-        fun onFragmentAttached()
-        fun onFragmentDetached(tag: String)
+        (parentActivity as BaseActivity).mOnDetachListener?.invoke("TAG")
     }
 
     fun setData(data: Map<String, Any>) {
@@ -90,4 +88,19 @@ abstract class BaseFragment : Fragment(), BaseView {
         arguments = bundle
     }
 
+    override fun onError(message: String) {
+        toast(message)
+    }
+
+    override fun onError(resId: Int) {
+        toast(resId)
+    }
+
+    override fun onSuccess(message: String) {
+        toast(message)
+    }
+
+    override fun onSuccess(resId: Int) {
+        toast(resId)
+    }
 }

@@ -92,21 +92,3 @@ fun Activity.hideSoftKeyboard() {
         inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
     }
 }
-
-@SuppressLint("CheckResult")
-fun completable(func: () -> Unit): Disposable {
-    return Completable.fromCallable {
-    }
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-            func()
-        }
-}
-
-fun completableTimer(func: () -> Unit, timer: Long = 2L): Disposable {
-    return Completable.timer(timer, TimeUnit.SECONDS)
-        .subscribe {
-            func()
-        }
-}
