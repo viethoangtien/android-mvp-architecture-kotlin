@@ -2,7 +2,6 @@ package com.soict.hoangviet.baseproject.application
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import androidx.fragment.app.Fragment
 import com.soict.hoangviet.baseproject.BuildConfig
 import com.soict.hoangviet.baseproject.di.component.DaggerAppComponent

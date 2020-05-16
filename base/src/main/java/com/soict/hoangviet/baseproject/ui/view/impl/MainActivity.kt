@@ -50,6 +50,11 @@ class MainActivity : BaseActivity(), MainView, BaseRecyclerView.BaseSwipeRefresh
         isLoading = true
         mPresenter.fetchListDriver()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.onDetach()
+    }
 }
 
 
